@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Tech Craft Limited</title>
+    <meta name="description" content="Transparent pricing for professional technology services in Kenya. Software, Blockchain, Branding, Design, and Educational Technology.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0A1F44;
+            --primary-light: #ffffff;
+            --surface-gray: #F4F6F8;
+            --accent-blue: #1D65A6;
+            --text-secondary: #333333;
+            --text-light: #666666;
+            --border-color: #e1e5e9;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            background: var(--primary-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--primary-dark);
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+    .logo-section {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .logo-image {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--primary-light);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            color: #fff;
+        }
+
+        .nav a {
+            color: #fff;
+            margin-left: var(--spacing-md);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Hero */
+        .hero {
+            background: var(--surface-gray);
+            padding: 120px var(--spacing-md) var(--spacing-lg);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-dark);
+        }
+      html{
+        scroll-behavior: smooth;
+      }
+        .hero p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .cta-btn {
+            background: var(--accent-blue);
+            color: #fff;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            background: #144572;
+            transform: translateY(-2px);
+        }
+
+        /* Services */
+        .services {
+            padding: var(--spacing-lg) var(--spacing-md);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .service-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: var(--spacing-lg);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+      .footer {
+            background: var(--primary-dark);
+            color: var(--primary-light);
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .service-card i {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .service-card h3 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary-dark);
+        }
+
+        .service-card p {
+            margin-bottom: var(--spacing-md);
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: var(--spacing-md);
+            color: var(--accent-blue);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .cta-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <div class="logo">Tech Craft Limited</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html">about us</a>
+                <a href="index.html">Contact us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Transparent, Fair, and Professional Pricing</h1>
+        <p>We don’t hide behind forms. We believe in real conversations that craft visions into reality.</p>
+        <a href="index.html#contact" class="cta-btn">Let's Craft Your Vision</a>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services container">
+        <div class="service-card">
+            <i class="fas fa-code"></i>
+            <h3>Custom Software & Web Development</h3>
+            <p>End-to-end development of scalable software and web platforms tailored for your business.</p>
+            <div class="price">KSh 50,000 – 800,000</div>
+        </div>
+
+        <div class="service-card">
+            <i class="fas fa-coins"></i>
+            <h3>Blockchain & Fintech Solutions</h3>
+            <p>Secure blockchain integrations and fintech platforms for future-proof businesses.</p>
+            <div class="price">KSh 500,000 – 10,000,000</div>
+        </div>
+
+        <div class="service-card">
+            <i class="fas fa-briefcase"></i>
+            <h3>Company Profiles & Branding</h3>
+            <p>Professional company profiles and branding packages designed to impress investors and clients.</p>
+            <div class="price">KSh 10,000 – 50,000</div>
+        </div>
+
+        <div class="service-card">
+            <i class="fas fa-paint-brush"></i>
+            <h3>Posters & Digital Flyers</h3>
+            <p>Eye-catching digital marketing posters and flyers to amplify your brand reach.</p>
+            <div class="price">KSh 2,500 – 25,000</div>
+        </div>
+
+        <div class="service-card">
+            <i class="fas fa-pen-nib"></i>
+            <h3>Logo Designs</h3>
+            <p>Unique, memorable logo designs that give your business a strong identity.</p>
+            <div class="price">KSh 5,000 – 30,000</div>
+        </div>
+
+        <div class="service-card">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Educational Technology Systems</h3>
+            <p>Robust EdTech platforms for schools, universities, and training institutions.</p>
+            <div class="price">KSh 400,000 – 8,000,000</div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Tech Craft Limited. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

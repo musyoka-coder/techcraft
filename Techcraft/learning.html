@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techcraft Learning - Programming Courses</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f5f5; color:#333; }
+  header, footer { background:#0A1F44; color:#fff; padding:20px; text-align:center; }
+  header h1 { margin-bottom:10px; }
+  nav a { color:#fff; margin: 0 15px; text-decoration:none; font-weight:bold; }
+  main { padding:20px; max-width:1000px; margin:0 auto; }
+  .chapter { background:#fff; padding:20px; margin-bottom:20px; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1); }
+  .chapter h2 { color:#0A1F44; }
+  iframe { width:100%; aspect-ratio:16/9; border:none; border-radius:10px; }
+  .notes { background:#e9ecef; padding:15px; margin:15px 0; border-radius:8px; cursor:pointer; }
+  .notes-content { display:none; margin-top:10px; }
+  .quiz { margin:15px 0; }
+  .quiz button, .certificate button, .quiz-link { padding:10px 20px; background:#1D65A6; color:#fff; border:none; border-radius:5px; cursor:pointer; text-decoration:none; display:inline-block; }
+  .quiz button:disabled { background:#ccc; cursor:not-allowed; }
+  .certificate { display:none; text-align:center; margin-top:20px; }
+  .certificate button { background:#28a745; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Techcraft Learning - Programming Courses</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="learning.html">Learning</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- Chapter 1 -->
+  <div class="chapter" id="chapter1">
+    <h2>Chapter 1: Python Basics</h2>
+    <iframe src="https://www.youtube.com/embed/ix9cRaBkVe0" allowfullscreen></iframe>
+    <div class="notes" onclick="toggleNotes(1)">
+      <h3>Notes (click to expand/collapse):</h3>
+      <div class="notes-content">
+        <p>Learn Python syntax, variables, data types, and basic operations.</p>
+        <a class="quiz-link" href="https://docs.google.com/document/d/your-google-doc-link-1" target="_blank">View Notes Document</a>
+      </div>
+    </div>
+    <div class="quiz">
+      <button onclick="openQuiz(1)">Take Quiz</button>
+    </div>
+  </div>
+
+  <!-- Chapter 2 -->
+  <div class="chapter" id="chapter2">
+    <h2>Chapter 2: Python Functions</h2>
+    <iframe src="https://www.youtube.com/embed/HGTJBPNC-Gw" allowfullscreen></iframe>
+    <div class="notes" onclick="toggleNotes(2)">
+      <h3>Notes (click to expand/collapse):</h3>
+      <div class="notes-content">
+        <p>Learn how to create and call functions in Python, understand parameters and return values.</p>
+        <a class="quiz-link" href="https://docs.google.com/document/d/your-google-doc-link-2" target="_blank">View Notes Document</a>
+      </div>
+    </div>
+    <div class="quiz">
+      <button onclick="openQuiz(2)" disabled>Take Quiz</button>
+    </div>
+  </div>
+
+  <!-- Chapter 3 -->
+  <div class="chapter" id="chapter3">
+    <h2>Chapter 3: Python Loops</h2>
+    <iframe src="https://www.youtube.com/embed/6iF8Xb7Z3wQ" allowfullscreen></iframe>
+    <div class="notes" onclick="toggleNotes(3)">
+      <h3>Notes (click to expand/collapse):</h3>
+      <div class="notes-content">
+        <p>Learn for loops, while loops, and controlling loops with break/continue.</p>
+        <a class="quiz-link" href="https://docs.google.com/document/d/your-google-doc-link-3" target="_blank">View Notes Document</a>
+      </div>
+    </div>
+    <div class="quiz">
+      <button onclick="openQuiz(3)" disabled>Take Quiz</button>
+    </div>
+  </div>
+
+  <!-- Chapter 4 -->
+  <div class="chapter" id="chapter4">
+    <h2>Chapter 4: Python Lists & Dictionaries</h2>
+    <iframe src="https://www.youtube.com/embed/ohCDWZgNIU0" allowfullscreen></iframe>
+    <div class="notes" onclick="toggleNotes(4)">
+      <h3>Notes (click to expand/collapse):</h3>
+      <div class="notes-content">
+        <p>Learn to manipulate lists and dictionaries, access data, and iterate over them.</p>
+        <a class="quiz-link" href="https://docs.google.com/document/d/your-google-doc-link-4" target="_blank">View Notes Document</a>
+      </div>
+    </div>
+    <div class="quiz">
+      <button onclick="openQuiz(4)" disabled>Take Quiz</button>
+    </div>
+  </div>
+
+  <!-- Chapter 5 -->
+  <div class="chapter" id="chapter5">
+    <h2>Chapter 5: Python File Handling</h2>
+    <iframe src="https://www.youtube.com/embed/uhk9DnpfD3A" allowfullscreen></iframe>
+    <div class="notes" onclick="toggleNotes(5)">
+      <h3>Notes (click to expand/collapse):</h3>
+      <div class="notes-content">
+        <p>Learn reading from and writing to files, handling exceptions during file operations.</p>
+        <a class="quiz-link" href="https://docs.google.com/document/d/your-google-doc-link-5" target="_blank">View Notes Document</a>
+      </div>
+    </div>
+    <div class="quiz">
+      <button onclick="openQuiz(5)" disabled>Take Quiz</button>
+    </div>
+  </div>
+
+  <!-- Chapter 6 -->
+  <div class="chapter" id="chapter6">
+    <h2>Chapter 6: Python Object-Oriented Programming</h2>
+    <iframe src="https://www.youtube.com/embed/JeznW_7DlB0" allowfullscreen></iframe>
+    <div class="notes" onclick="toggleNotes(6)">
+      <h3>Notes (click to expand/collapse):</h3>
+      <div class="notes-content">
+        <p>Learn classes, objects, inheritance, encapsulation, and polymorphism in Python.</p>
+        <a class="quiz-link" href="https://docs.google.com/document/d/your-google-doc-link-6" target="_blank">View Notes Document</a>
+      </div>
+    </div>
+    <div class="quiz">
+      <button onclick="openQuiz(6)" disabled>Take Quiz</button>
+    </div>
+  </div>
+
+  <!-- Certificate -->
+  <div class="certificate" id="certificate">
+    <h2>🎉 Congratulations!</h2>
+    <p>You have completed the course.</p>
+    <button onclick="generateCertificate()">Get Certificate</button>
+  </div>
+
+</main>
+
+<footer>
+  <p>&copy; 2025 Techcraft Limited</p>
+</footer>
+
+<script>
+  const chapters = [1,2,3,4,5,6];
+
+  function toggleNotes(chapter) {
+    const content = document.querySelector(`#chapter${chapter} .notes-content`);
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function openQuiz(chapter) {
+    window.open(`https://forms.gle/your-google-form-link-chapter${chapter}`, '_blank');
+    
+    if(chapter < chapters.length) {
+      document.querySelector(`#chapter${chapter+1} .quiz button`).disabled = false;
+    } else {
+      document.getElementById('certificate').style.display = 'block';
+    }
+  }
+
+  function generateCertificate() {
+    alert('Certificate generated! You can integrate Canva or PDF download here.');
+  }
+
+  // Disable all quizzes except first
+  chapters.forEach(c => {
+    if(c !== 1) document.querySelector(`#chapter${c} .quiz button`).disabled = true;
+  });
+</script>
+
+</body>
+</html>
+
