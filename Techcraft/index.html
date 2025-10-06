@@ -43,10 +43,7 @@
 }
 
 /* When the dropdown is activated */
-.nav-links.active {
-  max-height: 400px;        /* expand smoothly */
-  opacity: 1;
-}
+
 
 /* Style for each link inside dropdown */
 .nav-links a {
@@ -78,8 +75,8 @@
          .logo-section { display: flex; align-items: center; gap: var(--spacing-sm); } 
          .logo-image { width: 45px; height: 45px; border-radius: 8px; } 
          .logo-text { font-size: 28px; font-weight: 600; color: var(--primary-light); text-decoration: none; letter-spacing: -0.5px; }
-          .nav-links { display: flex; list-style: none; gap: var(--spacing-lg); }
-           .nav-links a { text-decoration: none; color: var(--primary-light); font-weight: 600; font-size: 15px; transition: all 0.3s ease; padding: var(--spacing-xs) var(--spacing-sm); border-radius: 10px; } 
+          /*.nav-links { display: flex; list-style: none; gap: var(--spacing-lg); }
+           .nav-links a { text-decoration: none; color: var(--primary-light); font-weight: 600; font-size: 15px; transition: all 0.3s ease; padding: var(--spacing-xs) var(--spacing-sm); border-radius: 10px; } */
            .nav-links a:hover { color: var(--accent-blue); background: rgba(29, 101, 166, 0.1); } 
            .menu-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--primary-light); }
             /* Hero Section */
@@ -135,7 +132,10 @@
                                  @media screen and  (max-width: 768px) 
                                  { .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: var(--primary-dark); flex-direction: column; padding: var(--spacing-md); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.3s ease; gap: 0; } .nav-links a { padding: var(--spacing-sm) 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
                                   .nav-links a:last-child { border-bottom: none; } 
-                                  .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; } 
+                                 .nav-links.active {
+  max-height: 400px;        /* expand smoothly */
+  opacity: 1;
+}
                                   .menu-toggle { display: block; } 
                                   .hero { padding: var(--spacing-xxl) 0; } 
                                   .services { padding: var(--spacing-xxl) 0; } 
