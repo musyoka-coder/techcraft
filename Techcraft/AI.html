@@ -160,16 +160,23 @@ async function sendMessage() {
             body: JSON.stringify({ messages: conversation })
         });
 
+        if (!res.ok) throw new Error(`Server returned ${res.status}`);
+
         const data = await res.json();
         removeTypingIndicator();
 
-        const aiText = data.choices?.[0]?.message?.content || "⚠️ No response from AI.";
+        // ✅ Properly handle the OpenAI response
+        const aiText =
+          data.choices?.[0]?.message?.content ||
+          data.error?.message ||
+          "⚠️ No response from Techcraft AI.";
+
         conversation.push({ role: 'assistant', content: aiText });
         addMessageWithTyping(aiText, 'ai');
     } catch (err) {
-        console.error(err);
+        console.error('Chat error:', err);
         removeTypingIndicator();
-        addMessage("⚠️ AI server error. Please try again.", 'ai');
+        addMessage("⚠️ Techcraft AI server error. Please try again later.", 'ai');
     }
 }
 
@@ -216,5 +223,8 @@ userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage
 
 </body>
 </html>
+
+
+
 
 
