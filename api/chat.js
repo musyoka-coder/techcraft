@@ -1,8 +1,7 @@
-// /api/chat.js
 const OpenAI = require("openai");
 
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // make sure this is set in Vercel
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 module.exports = async function handler(req, res) {
@@ -33,9 +32,11 @@ module.exports = async function handler(req, res) {
 
     res.status(200).json(completion);
   } catch (error) {
-    console.error("Chat API error:", error.message || error);
+    console.error("Chat API error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
 
 
