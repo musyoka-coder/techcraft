@@ -6,30 +6,114 @@
 <title>Techcraft AI Chat</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-    body { font-family: 'SF Pro Display', sans-serif; margin:0; background:hsla(220, 4%, 16%, 0.171); /*color:#fff; */display:flex; flex-direction:column; height:100vh;}
-    header { background:#136fc0; padding:15px; text-align:center; font-size:20px; font-weight:600;}
-    #chatContainer { flex:1; padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:15px; }
-    .message { max-width:70%; padding:12px 16px; border-radius:12px; line-height:1.4; }
-    .user { background:#007BFF; align-self:flex-end; color:#fff; }
-    .ai { background:black; align-self:flex-start; color:#fff; }
-    #inputContainer { display:flex; gap:10px; padding:10px; background:#1D65A6; }
-    #userInput { flex:1; padding:10px; border:none; border-radius:8px; font-size:16px; }
-    #sendBtn { padding:10px 20px; background:#007BFF; border:none; border-radius:8px; color:#fff; cursor:pointer; font-weight:600; }
-    #sendBtn:hover { background:#0056b3; }
-    @media and screen  (max-width:600px){ #userInput{font-size:14px;} #sendBtn{padding:8px 15px; font-size:14px;} }
-    .footer { background:#136fc0; /*var(--primary-dark); color: var(--primary-light);*/ padding: var(--spacing-xxl) 0; text-align: center; }
-    .footer p { color: rgba(255, 255, 255, 0.8); }
-    
+    body {
+        font-family: 'SF Pro Display', sans-serif;
+        margin: 0;
+        background: hsla(220, 4%, 16%, 0.171);
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+    header {
+        background: #136fc0;
+        padding: 15px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 600;
+        color: #fff;
+    }
+    #chatContainer {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .message {
+        max-width: 70%;
+        padding: 12px 16px;
+        border-radius: 12px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+    }
+    .user {
+        background: #007BFF;
+        align-self: flex-end;
+        color: #fff;
+    }
+    .ai {
+        background: black;
+        align-self: flex-start;
+        color: #fff;
+    }
+    #inputContainer {
+        display: flex;
+        gap: 10px;
+        padding: 10px;
+        background: #1D65A6;
+    }
+    #userInput {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+    #sendBtn {
+        padding: 10px 20px;
+        background: #007BFF;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    #sendBtn:hover {
+        background: #0056b3;
+    }
+    @media (max-width:600px) {
+        #userInput { font-size: 14px; }
+        #sendBtn { padding: 8px 15px; font-size: 14px; }
+    }
+    .footer {
+        background: #136fc0;
+        padding: 15px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Typing animation */
+    .typing {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      animation: blink 1.4s infinite both;
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0; }
+      40% { opacity: 1; }
+    }
 </style>
 </head>
 <body>
 
 <header>
   <h3>Techcraft AI Brainstorm</h3>
-   <nav>
-    <a href="index.html" style="text-decoration: none;">Home</a>
+  <nav>
+    <a href="index.html" style="text-decoration: none; color:#fff;">Home</a>
   </nav>
-
 </header>
 
 <div id="chatContainer"></div>
@@ -38,39 +122,53 @@
     <input type="text" id="userInput" placeholder="Type your message...">
     <button id="sendBtn"><i class="fas fa-paper-plane"></i> Send</button>
 </div>
- <footer class="footer">
-   <div class="container">
-    <p>
-     © 2025 Tech Craft Limited. Enterprise Technology Solutions.
-    </p>
-    
-   </div>
-  </footer>
+
+<footer class="footer">
+    <p>© 2025 Tech Craft Limited. Enterprise Technology Solutions.</p>
+</footer>
 
 <script>
 const chatContainer = document.getElementById('chatContainer');
 const userInput = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
 
+// Store chat history in memory
+let conversation = [];
+
+// Add initial AI greeting
+window.onload = function() {
+    const greeting = "👋 Hey there! I'm Techcraft AI — your brainstorming and coding assistant. What project are we working on today?";
+    addMessageWithTyping(greeting, 'ai');
+    conversation.push({ role: 'assistant', content: greeting });
+};
+
 async function sendMessage() {
     const message = userInput.value.trim();
-    if(!message) return;
+    if (!message) return;
 
     addMessage(message, 'user');
+    conversation.push({ role: 'user', content: message });
     userInput.value = '';
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
+    addTypingIndicator();
+
     try {
-        const res = await fetch('http://localhost:3000/chat', {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({ messages:[{ role:'user', content:message }] })
+        const res = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ messages: conversation })
         });
+
         const data = await res.json();
-        const aiText = data.choices[0].message.content;
-        addMessage(aiText, 'ai');
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    } catch(err) {
+        removeTypingIndicator();
+
+        const aiText = data.choices?.[0]?.message?.content || "⚠️ No response from AI.";
+        conversation.push({ role: 'assistant', content: aiText });
+        addMessageWithTyping(aiText, 'ai');
+    } catch (err) {
+        console.error(err);
+        removeTypingIndicator();
         addMessage("⚠️ AI server error. Please try again.", 'ai');
     }
 }
@@ -82,9 +180,41 @@ function addMessage(text, sender) {
     chatContainer.appendChild(div);
 }
 
+function addTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message ai typing';
+    typingDiv.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+    chatContainer.appendChild(typingDiv);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const typing = document.querySelector('.typing');
+    if (typing) typing.remove();
+}
+
+function addMessageWithTyping(text, sender) {
+    const div = document.createElement('div');
+    div.className = `message ${sender}`;
+    chatContainer.appendChild(div);
+
+    let index = 0;
+    const interval = setInterval(() => {
+        if (index < text.length) {
+            div.textContent += text.charAt(index);
+            index++;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        } else {
+            clearInterval(interval);
+        }
+    }, 25);
+}
+
 sendBtn.addEventListener('click', sendMessage);
-userInput.addEventListener('keypress', e => { if(e.key === 'Enter') sendMessage(); });
+userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
 </script>
 
 </body>
-</html> 
+</html>
+
+
