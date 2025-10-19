@@ -418,32 +418,29 @@ document.addEventListener('DOMContentLoaded', () => {
 </footer>
 
 <!-- Typeform Embed -->
+
+<!-- Typeform Popup Embed -->
 <script src="https://embed.typeform.com/next/embed.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const demoBtn = document.getElementById('request-demo');
+  document.addEventListener("DOMContentLoaded", function() {
+    const demoBtn = document.getElementById("request-demo");
 
-    demoBtn.addEventListener('click', function() {
-      // Ensure Typeform is loaded before trying to open
-      if (window.typeformEmbed) {
-        window.typeformEmbed.makePopup(
-          "https://form.typeform.com/to/O2MiLRLf",
-          {
-            mode: "popup",
-            hideHeaders: true,
-            hideFooter: true,
-            opacity: 100
-          }
-        ).open();
-      } else {
-        alert("Form is still loading... please be patient .");
-      }
+    demoBtn.addEventListener("click", function() {
+      // Create and open the Typeform popup
+      const popup = window.typeformEmbed.makePopup("https://form.typeform.com/to/O2MiLRLf", {
+        mode: "popup",
+        hideHeaders: true,
+        hideFooter: true,
+        opacity: 100
+      });
+
+      popup.open();
     });
   });
 </script>
-
 </body>
 </html>
+
 
 
 
