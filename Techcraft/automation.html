@@ -238,6 +238,7 @@ nav {
   border-radius:8px;
   font-weight:600;
   transition:.3s;
+  cursor:pointer;
 }
 
 .cta-button:hover {
@@ -337,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <ul class="nav-links">
       <li><a href="index.html#services">Services</a></li>
       <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="learning.html">learning</a></li>
+      <li><a href="learning.html">Learning</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
     <button class="menu-toggle"><i class="fas fa-bars"></i></button>
@@ -405,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <section class="cta-section">
   <div class="container">
     <h2>Ready to Automate Your Business?</h2>
-    <a href="booking.html" class="cta-button">Request a Demo</a>
+    <button id="request-demo" class="cta-button">Request a Demo</button>
   </div>
 </section>
 
@@ -416,8 +417,25 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </footer>
 
+<!-- Typeform Embed -->
+<script src="https://embed.typeform.com/next/embed.js"></script>
+<script>
+  document.getElementById('request-demo').addEventListener('click', function() {
+    window.typeformEmbed.makePopup(
+      "https://form.typeform.com/to/O2MiLRLf",
+      {
+        mode: 'popup',
+        hideHeaders: true,
+        hideFooter: true,
+        opacity: 100
+      }
+    ).open();
+  });
+</script>
+
 </body>
 </html>
+
 
 
 
