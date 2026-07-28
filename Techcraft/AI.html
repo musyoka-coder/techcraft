@@ -5,104 +5,228 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Techcraft AI Chat</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+    :root {
+        --navy: #0b2340;
+        --blue: #136fc0;
+        --blue-bright: #1d8bf0;
+        --amber: #f5a623;
+        --bg: #eef2f6;
+        --card: #ffffff;
+        --ink: #10233b;
+        --muted: #5b7089;
+        --bubble-user: linear-gradient(135deg, #1d8bf0, #136fc0);
+        --bubble-ai: #0b2340;
+        --radius: 14px;
+    }
+    * { box-sizing: border-box; }
     body {
-        font-family: 'SF Pro Display', sans-serif;
+        font-family: 'Inter', 'SF Pro Display', sans-serif;
         margin: 0;
-        background: hsla(220, 4%, 16%, 0.171);
+        background: var(--bg);
         display: flex;
         flex-direction: column;
         height: 100vh;
+        color: var(--ink);
     }
+
+    /* Header */
     header {
-        background: #136fc0;
-        padding: 15px;
-        text-align: center;
-        font-size: 20px;
-        font-weight: 600;
+        background: var(--navy);
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        box-shadow: 0 2px 10px rgba(11,35,64,0.25);
+        flex-wrap: wrap;
+    }
+    header .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        font-size: 18px;
         color: #fff;
     }
+    header .brand i { color: var(--amber); }
+    header nav {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+    header nav a {
+        text-decoration: none;
+        color: rgba(255,255,255,0.85);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 6px 10px;
+        border-radius: 8px;
+        transition: background 0.15s, color 0.15s;
+        white-space: nowrap;
+    }
+    header nav a:hover, header nav a:focus-visible {
+        background: rgba(255,255,255,0.12);
+        color: #fff;
+    }
+    header nav a.cta {
+        background: var(--amber);
+        color: var(--navy);
+        font-weight: 700;
+    }
+    header nav a.cta:hover { background: #ffb849; }
+
+    /* Quick actions */
+    #quickActions {
+        display: flex;
+        gap: 8px;
+        padding: 10px 16px;
+        overflow-x: auto;
+        background: var(--card);
+        border-bottom: 1px solid #e2e8f0;
+        flex-shrink: 0;
+    }
+    .quick-btn {
+        flex-shrink: 0;
+        border: 1px solid #d7e0ea;
+        background: #f7fafc;
+        color: var(--navy);
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.15s;
+    }
+    .quick-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
     #chatContainer {
         flex: 1;
         padding: 20px;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 14px;
     }
+
     .message {
-        max-width: 70%;
+        max-width: 75%;
         padding: 12px 16px;
-        border-radius: 12px;
-        line-height: 1.4;
+        border-radius: var(--radius);
+        line-height: 1.5;
+        font-size: 14.5px;
         white-space: pre-wrap;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
+    .message a { color: inherit; text-decoration: underline; font-weight: 600; }
     .user {
-        background: #007BFF;
+        background: var(--bubble-user);
         align-self: flex-end;
         color: #fff;
+        border-bottom-right-radius: 4px;
     }
     .ai {
-        background: black;
+        background: var(--bubble-ai);
         align-self: flex-start;
-        color: #fff;
+        color: #eef2f6;
+        border-bottom-left-radius: 4px;
     }
+    .ai a { color: #7cc4ff; }
+
+    /* Resource chips (W3Schools etc.) */
+    .resource-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 4px;
+        align-self: flex-start;
+        max-width: 75%;
+    }
+    .resource-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #fff;
+        border: 1px solid #d7e0ea;
+        color: var(--navy);
+        text-decoration: none;
+        font-size: 12.5px;
+        font-weight: 600;
+        padding: 6px 10px;
+        border-radius: 999px;
+        transition: all 0.15s;
+    }
+    .resource-chip:hover { background: var(--amber); border-color: var(--amber); color: var(--navy); }
+    .resource-chip i { color: #04AA6D; }
+
     #inputContainer {
         display: flex;
         gap: 10px;
-        padding: 10px;
-        background: #1D65A6;
+        padding: 12px 16px;
+        background: var(--navy);
+        flex-shrink: 0;
     }
     #userInput {
         flex: 1;
-        padding: 10px;
+        padding: 12px 14px;
         border: none;
-        border-radius: 8px;
-        font-size: 16px;
+        border-radius: 10px;
+        font-size: 15px;
+        outline: none;
     }
     #sendBtn {
         padding: 10px 20px;
-        background: #007BFF;
+        background: var(--amber);
         border: none;
-        border-radius: 8px;
-        color: #fff;
+        border-radius: 10px;
+        color: var(--navy);
         cursor: pointer;
-        font-weight: 600;
+        font-weight: 700;
+        transition: background 0.15s;
     }
-    #sendBtn:hover {
-        background: #0056b3;
-    }
+    #sendBtn:hover { background: #ffb849; }
+    #sendBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
     @media (max-width:600px) {
+        header nav a:not(.cta) { display: none; }
+        .message { max-width: 88%; }
         #userInput { font-size: 14px; }
         #sendBtn { padding: 8px 15px; font-size: 14px; }
     }
+
     .footer {
-        background: #136fc0;
-        padding: 15px;
+        background: var(--navy);
+        padding: 12px 16px;
         text-align: center;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 12.5px;
+        flex-shrink: 0;
     }
+    .footer a { color: rgba(255,255,255,0.85); text-decoration: none; margin: 0 6px; }
+    .footer a:hover { color: var(--amber); }
 
     /* Typing animation */
     .typing {
       display: flex;
       align-items: center;
       gap: 4px;
+      padding: 14px 16px;
     }
-
     .dot {
       width: 6px;
       height: 6px;
-      background: #fff;
+      background: #cfe0f2;
       border-radius: 50%;
       animation: blink 1.4s infinite both;
     }
-
     .dot:nth-child(2) { animation-delay: 0.2s; }
     .dot:nth-child(3) { animation-delay: 0.4s; }
-
     @keyframes blink {
-      0%, 80%, 100% { opacity: 0; }
+      0%, 80%, 100% { opacity: 0.2; }
       40% { opacity: 1; }
     }
 </style>
@@ -110,45 +234,145 @@
 <body>
 
 <header>
-  <h3>Techcraft AI Brainstorm</h3>
+  <div class="brand"><i class="fa-solid fa-microchip"></i> Techcraft AI</div>
   <nav>
-    <a href="index.html" style="text-decoration: none; color:#fff;">Home</a>
+    <a href="https://www.techcraftlimited.tech/index.html" target="_blank" rel="noopener">Home</a>
+    <a href="https://www.techcraftlimited.tech/index.html#services" target="_blank" rel="noopener">Services</a>
+    <a href="https://www.techcraftlimited.tech/pricing.html" target="_blank" rel="noopener">Pricing</a>
+    <a href="https://www.techcraftlimited.tech/automation.html" target="_blank" rel="noopener">Automation</a>
+    <a href="https://www.techcraftlimited.tech/learning.html" target="_blank" rel="noopener">Learning Portal</a>
+    <a href="https://www.techcraftlimited.tech/index.html#contact" target="_blank" rel="noopener">Contact</a>
+    <a class="cta" href="https://www.techcraftlimited.tech/booking.html" target="_blank" rel="noopener">Book Now</a>
   </nav>
 </header>
+
+<div id="quickActions">
+  <button class="quick-btn" data-action="services">🧭 Our Services</button>
+  <button class="quick-btn" data-action="pricing">💰 Pricing</button>
+  <button class="quick-btn" data-action="booking">📅 Book a Consultation</button>
+  <button class="quick-btn" data-action="contact">✉️ Contact Us</button>
+  <button class="quick-btn" data-action="learn">💻 Learn to Code</button>
+  <button class="quick-btn" data-action="blockchain">⛓️ Blockchain & FinTech</button>
+</div>
 
 <div id="chatContainer"></div>
 
 <div id="inputContainer">
-    <input type="text" id="userInput" placeholder="Type your message...">
+    <input type="text" id="userInput" placeholder="Ask about our services, pricing, booking, or any coding question...">
     <button id="sendBtn"><i class="fas fa-paper-plane"></i> Send</button>
 </div>
 
 <footer class="footer">
-    <p>© 2025 Tech Craft Limited. Enterprise Technology Solutions.</p>
+  <span>© 2025 Tech Craft Limited. Enterprise Technology Solutions.</span><br>
+  <a href="mailto:techcraft.bookings@gmail.com"><i class="fa-solid fa-envelope"></i> techcraft.bookings@gmail.com</a>
+  <a href="tel:+254792627702"><i class="fa-solid fa-phone"></i> +254 792 627 702</a>
+  <a href="https://www.techcraftlimited.tech/booking.html" target="_blank" rel="noopener"><i class="fa-solid fa-calendar-check"></i> Book Consultation</a>
 </footer>
 
 <script>
+/* ============================================================
+   COMPANY KNOWLEDGE BASE — sent as a system message so the
+   backend model always has accurate, up-to-date context about
+   Tech Craft Limited, without needing to guess or hallucinate.
+   ============================================================ */
+const SYSTEM_PROMPT = `You are Techcraft AI, the official brainstorming and coding assistant for Tech Craft Limited, an enterprise technology consultancy based in Kenya (https://www.techcraftlimited.tech).
+
+ROLE: Help visitors and clients with (1) general ICT / programming / coding questions, (2) navigating the Tech Craft Limited website, (3) understanding services and pricing, and (4) booking a consultation or getting in touch.
+
+COMPANY SERVICES:
+- Enterprise Software Development — custom web apps, management systems, digital platforms (KSh 50,000–800,000)
+- Blockchain & FinTech Integration — KYC integration, crypto-to-mobile-money, smart contracts, DeFi (KSh 500,000–10,000,000)
+- Corporate Brand Development — company profiles, brand identity packages (KSh 10,000–50,000)
+- Digital Marketing Assets — posters, digital flyers (KSh 2,500–25,000)
+- Logo & Identity Design (KSh 5,000–30,000)
+- Educational Technology Solutions — school management & learning management systems (KSh 400,000–8,000,000)
+- Programming Tutorials AI & Certification — AI-powered coding tutoring, adaptive learning paths
+
+SITE NAVIGATION (always link with markdown, e.g. [Book a Consultation](https://www.techcraftlimited.tech/booking.html)):
+- Home: https://www.techcraftlimited.tech/index.html
+- Services: https://www.techcraftlimited.tech/index.html#services
+- Pricing: https://www.techcraftlimited.tech/pricing.html
+- Automation: https://www.techcraftlimited.tech/automation.html
+- Learning Portal: https://www.techcraftlimited.tech/learning.html
+- Book a Consultation: https://www.techcraftlimited.tech/booking.html
+- Brainstorm with AI: https://www.techcraftlimited.tech/AI.html
+- Privacy Policy: https://www.techcraftlimited.tech/privacy.html
+- Terms of Service: https://www.techcraftlimited.tech/terms.html
+- Sitemap: https://www.techcraftlimited.tech/sitemap.html
+
+CONTACT:
+- Email: techcraft.bookings@gmail.com
+- Phone / WhatsApp: +254 792 627 702
+- LinkedIn: https://linkedin.com/company/tech-craft-limited
+- X (Twitter): https://x.com/Tech_craft_ltd
+- Facebook: https://www.facebook.com/profile.php?id=61583499659601
+
+BEHAVIOUR RULES:
+1. When a user asks a coding/programming question, or mentions a specific language, framework, or technology (e.g. HTML, CSS, JavaScript, Python, SQL, PHP, Java, C++, C#, React, Node.js, jQuery, Bootstrap, TypeScript, Django, MySQL), answer the question clearly and concisely, then ALWAYS add a markdown link to the matching official W3Schools tutorial, formatted like: [Learn more on W3Schools](https://www.w3schools.com/<topic>/). Use the correct W3Schools path for that language (e.g. /js/, /python/, /css/, /html/, /sql/, /php/, /java/, /cpp/, /cs/, /react/, /nodejs/, /jquery/, /bootstrap5/, /typescript/, /django/, /mysql/).
+2. When asked how to book, schedule a consultation, or get a quote, direct them to the booking page and share the email and phone number.
+3. When asked about services or "what do you do", summarize the relevant services above and link to the Pricing page for cost ranges.
+4. When asked for contact details, provide the email, phone, and booking link as clickable markdown links.
+5. If a question is outside ICT, coding, or Tech Craft Limited's services, answer briefly and helpfully if it's general knowledge, but gently steer the conversation back to how Tech Craft Limited can help.
+6. Keep answers friendly, professional, and concise. Use markdown links for every URL you mention — never show a bare "click here".
+7. Never invent pricing, staff names, or services not listed above.`;
+
+/* W3Schools quick-link chips shown under any message that
+   mentions a recognizable language/technology — a client-side
+   safety net in case the backend model forgets rule #1 above. */
+const LANG_LINKS = [
+  { name: 'TypeScript', re: /\btypescript\b/i, url: 'https://www.w3schools.com/typescript/' },
+  { name: 'JavaScript',  re: /\b(javascript|js)\b/i, url: 'https://www.w3schools.com/js/' },
+  { name: 'Node.js',     re: /\bnode(\.js)?\b/i, url: 'https://www.w3schools.com/nodejs/' },
+  { name: 'React',       re: /\breact(\.js)?\b/i, url: 'https://www.w3schools.com/react/' },
+  { name: 'HTML',        re: /\bhtml5?\b/i, url: 'https://www.w3schools.com/html/' },
+  { name: 'CSS',         re: /\bcss3?\b/i, url: 'https://www.w3schools.com/css/' },
+  { name: 'Bootstrap',   re: /\bbootstrap\b/i, url: 'https://www.w3schools.com/bootstrap5/' },
+  { name: 'jQuery',      re: /\bjquery\b/i, url: 'https://www.w3schools.com/jquery/' },
+  { name: 'Django',      re: /\bdjango\b/i, url: 'https://www.w3schools.com/django/' },
+  { name: 'Python',      re: /\bpython\b/i, url: 'https://www.w3schools.com/python/' },
+  { name: 'PHP',         re: /\bphp\b/i, url: 'https://www.w3schools.com/php/' },
+  { name: 'MySQL',       re: /\bmysql\b/i, url: 'https://www.w3schools.com/mysql/' },
+  { name: 'SQL',         re: /\bsql\b/i, url: 'https://www.w3schools.com/sql/' },
+  { name: 'C++',         re: /\bc\+\+\b/i, url: 'https://www.w3schools.com/cpp/' },
+  { name: 'C#',          re: /\bc#\b/i, url: 'https://www.w3schools.com/cs/' },
+  { name: 'Java',        re: /\bjava\b/i, url: 'https://www.w3schools.com/java/' },
+  { name: 'Kotlin',      re: /\bkotlin\b/i, url: 'https://www.w3schools.com/kotlin/' },
+  { name: 'Git',         re: /\bgit\b/i, url: 'https://www.w3schools.com/git/' },
+  { name: 'JSON',        re: /\bjson\b/i, url: 'https://www.w3schools.com/js/js_json_intro.asp' },
+  { name: 'XML',         re: /\bxml\b/i, url: 'https://www.w3schools.com/xml/' },
+];
+
+function detectLanguages(text) {
+    const found = [];
+    for (const lang of LANG_LINKS) {
+        if (lang.re.test(text) && !found.some(f => f.name === lang.name)) {
+            found.push(lang);
+        }
+    }
+    return found;
+}
+
 const chatContainer = document.getElementById('chatContainer');
 const userInput = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
 
-// Store chat history in memory
-let conversation = [];
+// Conversation history sent to the backend. System prompt goes first.
+let conversation = [{ role: 'system', content: SYSTEM_PROMPT }];
 
-// Add initial AI greeting
 window.onload = function() {
-    const greeting = "👋 Hey there! I'm Techcraft AI — your brainstorming and coding assistant. What project are we working on today?";
-    addMessageWithTyping(greeting, 'ai');
+    const greeting = "👋 Hey there! I'm Techcraft AI — your ICT & coding assistant, and your guide to Tech Craft Limited's services. Ask me a coding question, browse our services, or [book a consultation](https://www.techcraftlimited.tech/booking.html). What are we working on today?";
     conversation.push({ role: 'assistant', content: greeting });
+    addMessageWithTyping(greeting, 'ai');
 };
 
-async function sendMessage() {
-    const message = userInput.value.trim();
+async function sendMessage(overrideText) {
+    const message = (overrideText !== undefined ? overrideText : userInput.value).trim();
     if (!message) return;
 
     addMessage(message, 'user');
     conversation.push({ role: 'user', content: message });
     userInput.value = '';
+    sendBtn.disabled = true;
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
     addTypingIndicator();
@@ -165,26 +389,72 @@ async function sendMessage() {
         const data = await res.json();
         removeTypingIndicator();
 
-        // ✅ Properly handle the OpenAI response
         const aiText =
           data.choices?.[0]?.message?.content ||
           data.error?.message ||
           "⚠️ No response from Techcraft AI.";
 
         conversation.push({ role: 'assistant', content: aiText });
-        addMessageWithTyping(aiText, 'ai');
+        addMessageWithTyping(aiText, 'ai', message);
     } catch (err) {
         console.error('Chat error:', err);
         removeTypingIndicator();
-        addMessage("⚠️ Techcraft AI server error. Please try again later.", 'ai');
+        addMessage("⚠️ Techcraft AI server error. Please try again later, or reach us directly at techcraft.bookings@gmail.com / +254 792 627 702.", 'ai');
+    } finally {
+        sendBtn.disabled = false;
     }
+}
+
+/* Escapes HTML, then converts markdown-style [text](url), bare
+   URLs, emails, and **bold** into safe, clickable HTML. */
+function formatMessage(text) {
+    let safe = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    // markdown links [text](url)
+    safe = safe.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+    // bold **text**
+    safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+    // bare emails
+    safe = safe.replace(/([\w.+-]+@[\w-]+\.[\w.-]+)(?![^<]*>)/g,
+        '<a href="mailto:$1">$1</a>');
+
+    // bare URLs not already inside an <a> tag
+    safe = safe.replace(/(?<!href=")(https?:\/\/[^\s<]+)/g,
+        '<a href="$1" target="_blank" rel="noopener">$1</a>');
+
+    return safe;
 }
 
 function addMessage(text, sender) {
     const div = document.createElement('div');
     div.className = `message ${sender}`;
-    div.textContent = text;
+    div.innerHTML = formatMessage(text);
     chatContainer.appendChild(div);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+function addResourceChips(text) {
+    const langs = detectLanguages(text);
+    if (!langs.length) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'resource-chips';
+    langs.forEach(lang => {
+        const a = document.createElement('a');
+        a.href = lang.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.className = 'resource-chip';
+        a.innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${lang.name} on W3Schools`;
+        wrap.appendChild(a);
+    });
+    chatContainer.appendChild(wrap);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 function addTypingIndicator() {
@@ -200,24 +470,53 @@ function removeTypingIndicator() {
     if (typing) typing.remove();
 }
 
-function addMessageWithTyping(text, sender) {
+function addMessageWithTyping(text, sender, userMessage) {
     const div = document.createElement('div');
     div.className = `message ${sender}`;
     chatContainer.appendChild(div);
 
+    const rendered = formatMessage(text);
+    // Type out the plain-text version for effect, then swap in the
+    // fully-formatted HTML (with working links) once done.
     let index = 0;
+    const plain = text.replace(/\*\*([^*]+)\*\*/g, '$1');
     const interval = setInterval(() => {
-        if (index < text.length) {
-            div.textContent += text.charAt(index);
+        if (index < plain.length) {
+            div.textContent = plain.slice(0, index + 1);
             index++;
             chatContainer.scrollTop = chatContainer.scrollHeight;
         } else {
             clearInterval(interval);
+            div.innerHTML = rendered;
+            // Detect language mentions in either the AI reply or the
+            // user's own question, so a W3Schools chip always appears.
+            addResourceChips(text + ' ' + (userMessage || ''));
+            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
-    }, 25);
+    }, 12);
 }
 
-sendBtn.addEventListener('click', sendMessage);
+/* Quick action bar */
+const QUICK_PROMPTS = {
+    services: "What services does Tech Craft Limited offer?",
+    pricing: "What's your pricing for a website or software project?",
+    contact: "How can I contact Tech Craft Limited?",
+    learn: "I want to learn a programming language — where should I start?",
+    blockchain: "Tell me about your blockchain and fintech integration services."
+};
+
+document.getElementById('quickActions').addEventListener('click', (e) => {
+    const btn = e.target.closest('.quick-btn');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    if (action === 'booking') {
+        window.open('https://www.techcraftlimited.tech/booking.html', '_blank', 'noopener');
+        return;
+    }
+    sendMessage(QUICK_PROMPTS[action]);
+});
+
+sendBtn.addEventListener('click', () => sendMessage());
 userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
 </script>
 
