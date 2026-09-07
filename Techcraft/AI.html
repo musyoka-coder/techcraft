@@ -258,12 +258,12 @@
 <div id="chatContainer"></div>
 
 <div id="inputContainer">
-    <input type="text" id="userInput" placeholder="Ask about our services, pricing, booking, or any coding question...">
+    <input type="text" id="userInput" placeholder="Ask about Tech Craft, services, pricing, booking, automation, learning, or coding...">
     <button id="sendBtn"><i class="fas fa-paper-plane"></i> Send</button>
 </div>
 
 <footer class="footer">
-  <span>© 2025 Tech Craft Limited. Enterprise Technology Solutions.</span><br>
+  <span>© 2026 Tech Craft Limited. Enterprise Technology Solutions.</span><br>
   <a href="mailto:techcraft.bookings@gmail.com"><i class="fa-solid fa-envelope"></i> techcraft.bookings@gmail.com</a>
   <a href="tel:+254792627702"><i class="fa-solid fa-phone"></i> +254 792 627 702</a>
   <a href="https://www.techcraftlimited.tech/booking.html" target="_blank" rel="noopener"><i class="fa-solid fa-calendar-check"></i> Book Consultation</a>
@@ -271,259 +271,607 @@
 
 <script>
 /* ============================================================
-   COMPANY KNOWLEDGE BASE — sent as a system message so the
-   backend model always has accurate, up-to-date context about
-   Tech Craft Limited, without needing to guess or hallucinate.
+   TECH CRAFT AI — HARD-CODED KNOWLEDGE + OPTIONAL AI BACKEND
+
+   Design goals:
+   1. Tech Craft questions are answered locally from this KB.
+   2. Coding/technical questions can use /api/chat when available.
+   3. If the API is down, the assistant never throws a blank/error
+      message; it gives a useful fallback and contact details.
+   4. No API key is stored in this HTML file.
    ============================================================ */
-const SYSTEM_PROMPT = `You are Techcraft AI, the official brainstorming and coding assistant for Tech Craft Limited, an enterprise technology consultancy based in Kenya (https://www.techcraftlimited.tech).
 
-ROLE: Help visitors and clients with (1) general ICT / programming / coding questions, (2) navigating the Tech Craft Limited website, (3) understanding services and pricing, and (4) booking a consultation or getting in touch.
-
-COMPANY SERVICES:
-- Enterprise Software Development — custom web apps, management systems, digital platforms (KSh 50,000–800,000)
-- Blockchain & FinTech Integration — KYC integration, crypto-to-mobile-money, smart contracts, DeFi (KSh 500,000–10,000,000)
-- Corporate Brand Development — company profiles, brand identity packages (KSh 10,000–50,000)
-- Digital Marketing Assets — posters, digital flyers (KSh 2,500–25,000)
-- Logo & Identity Design (KSh 5,000–30,000)
-- Educational Technology Solutions — school management & learning management systems (KSh 400,000–8,000,000)
-- Programming Tutorials AI & Certification — AI-powered coding tutoring, adaptive learning paths
-
-SITE NAVIGATION (always link with markdown, e.g. [Book a Consultation](https://www.techcraftlimited.tech/booking.html)):
-- Home: https://www.techcraftlimited.tech/index.html
-- Services: https://www.techcraftlimited.tech/index.html#services
-- Pricing: https://www.techcraftlimited.tech/pricing.html
-- Automation: https://www.techcraftlimited.tech/automation.html
-- Learning Portal: https://www.techcraftlimited.tech/learning.html
-- Book a Consultation: https://www.techcraftlimited.tech/booking.html
-- Brainstorm with AI: https://www.techcraftlimited.tech/AI.html
-- Privacy Policy: https://www.techcraftlimited.tech/privacy.html
-- Terms of Service: https://www.techcraftlimited.tech/terms.html
-- Sitemap: https://www.techcraftlimited.tech/sitemap.html
-
-CONTACT:
-- Email: techcraft.bookings@gmail.com
-- Phone / WhatsApp: +254 792 627 702
-- LinkedIn: https://linkedin.com/company/tech-craft-limited
-- X (Twitter): https://x.com/Tech_craft_ltd
-- Facebook: https://www.facebook.com/profile.php?id=61583499659601
-
-BEHAVIOUR RULES:
-1. When a user asks a coding/programming question, or mentions a specific language, framework, or technology (e.g. HTML, CSS, JavaScript, Python, SQL, PHP, Java, C++, C#, React, Node.js, jQuery, Bootstrap, TypeScript, Django, MySQL), answer the question clearly and concisely, then ALWAYS add a markdown link to the matching official W3Schools tutorial, formatted like: [Learn more on W3Schools](https://www.w3schools.com/<topic>/). Use the correct W3Schools path for that language (e.g. /js/, /python/, /css/, /html/, /sql/, /php/, /java/, /cpp/, /cs/, /react/, /nodejs/, /jquery/, /bootstrap5/, /typescript/, /django/, /mysql/).
-2. When asked how to book, schedule a consultation, or get a quote, direct them to the booking page and share the email and phone number.
-3. When asked about services or "what do you do", summarize the relevant services above and link to the Pricing page for cost ranges.
-4. When asked for contact details, provide the email, phone, and booking link as clickable markdown links.
-5. If a question is outside ICT, coding, or Tech Craft Limited's services, answer briefly and helpfully if it's general knowledge, but gently steer the conversation back to how Tech Craft Limited can help.
-6. Keep answers friendly, professional, and concise. Use markdown links for every URL you mention — never show a bare "click here".
-7. Never invent pricing, staff names, or services not listed above.`;
-
-/* W3Schools quick-link chips shown under any message that
-   mentions a recognizable language/technology — a client-side
-   safety net in case the backend model forgets rule #1 above. */
-const LANG_LINKS = [
-  { name: 'TypeScript', re: /\btypescript\b/i, url: 'https://www.w3schools.com/typescript/' },
-  { name: 'JavaScript',  re: /\b(javascript|js)\b/i, url: 'https://www.w3schools.com/js/' },
-  { name: 'Node.js',     re: /\bnode(\.js)?\b/i, url: 'https://www.w3schools.com/nodejs/' },
-  { name: 'React',       re: /\breact(\.js)?\b/i, url: 'https://www.w3schools.com/react/' },
-  { name: 'HTML',        re: /\bhtml5?\b/i, url: 'https://www.w3schools.com/html/' },
-  { name: 'CSS',         re: /\bcss3?\b/i, url: 'https://www.w3schools.com/css/' },
-  { name: 'Bootstrap',   re: /\bbootstrap\b/i, url: 'https://www.w3schools.com/bootstrap5/' },
-  { name: 'jQuery',      re: /\bjquery\b/i, url: 'https://www.w3schools.com/jquery/' },
-  { name: 'Django',      re: /\bdjango\b/i, url: 'https://www.w3schools.com/django/' },
-  { name: 'Python',      re: /\bpython\b/i, url: 'https://www.w3schools.com/python/' },
-  { name: 'PHP',         re: /\bphp\b/i, url: 'https://www.w3schools.com/php/' },
-  { name: 'MySQL',       re: /\bmysql\b/i, url: 'https://www.w3schools.com/mysql/' },
-  { name: 'SQL',         re: /\bsql\b/i, url: 'https://www.w3schools.com/sql/' },
-  { name: 'C++',         re: /\bc\+\+\b/i, url: 'https://www.w3schools.com/cpp/' },
-  { name: 'C#',          re: /\bc#\b/i, url: 'https://www.w3schools.com/cs/' },
-  { name: 'Java',        re: /\bjava\b/i, url: 'https://www.w3schools.com/java/' },
-  { name: 'Kotlin',      re: /\bkotlin\b/i, url: 'https://www.w3schools.com/kotlin/' },
-  { name: 'Git',         re: /\bgit\b/i, url: 'https://www.w3schools.com/git/' },
-  { name: 'JSON',        re: /\bjson\b/i, url: 'https://www.w3schools.com/js/js_json_intro.asp' },
-  { name: 'XML',         re: /\bxml\b/i, url: 'https://www.w3schools.com/xml/' },
-];
-
-function detectLanguages(text) {
-    const found = [];
-    for (const lang of LANG_LINKS) {
-        if (lang.re.test(text) && !found.some(f => f.name === lang.name)) {
-            found.push(lang);
-        }
-    }
-    return found;
-}
-
-const chatContainer = document.getElementById('chatContainer');
-const userInput = document.getElementById('userInput');
-const sendBtn = document.getElementById('sendBtn');
-
-// Conversation history sent to the backend. System prompt goes first.
-let conversation = [{ role: 'system', content: SYSTEM_PROMPT }];
-
-window.onload = function() {
-    const greeting = "👋 Hey there! I'm Techcraft AI — your ICT & coding assistant, and your guide to Tech Craft Limited's services. Ask me a coding question, browse our services, or [book a consultation](https://www.techcraftlimited.tech/booking.html). What are we working on today?";
-    conversation.push({ role: 'assistant', content: greeting });
-    addMessageWithTyping(greeting, 'ai');
+const SITE = {
+  name: "Tech Craft Limited",
+  website: "https://www.techcraftlimited.tech/",
+  email: "techcraft.bookings@gmail.com",
+  phone: "+254 792 627 702",
+  booking: "https://www.techcraftlimited.tech/booking.html",
+  pricing: "https://www.techcraftlimited.tech/pricing.html",
+  services: "https://www.techcraftlimited.tech/index.html#services",
+  automation: "https://www.techcraftlimited.tech/automation.html",
+  learning: "https://www.techcraftlimited.tech/learning.html",
+  ai: "https://www.techcraftlimited.tech/AI.html",
+  privacy: "https://www.techcraftlimited.tech/privacy.html",
+  terms: "https://www.techcraftlimited.tech/terms.html",
+  sitemap: "https://www.techcraftlimited.tech/sitemap.html",
+  linkedin: "https://linkedin.com/company/tech-craft-limited",
+  x: "https://x.com/Tech_craft_ltd",
+  facebook: "https://www.facebook.com/profile.php?id=61583499659601"
 };
 
-async function sendMessage(overrideText) {
-    const message = (overrideText !== undefined ? overrideText : userInput.value).trim();
-    if (!message) return;
+const KNOWLEDGE_BASE = {
+  company: {
+    name: "Tech Craft Limited",
+    positioning:
+      "Tech Craft Limited is an enterprise technology consultancy focused on software systems and digital transformation. It develops solutions intended to be locally relevant to Kenyan businesses and globally competitive.",
+    websiteSummary:
+      "The company provides enterprise software, blockchain and FinTech integration, corporate branding, digital marketing assets, logo and identity design, educational technology, and AI-powered programming tutorials and certification."
+  },
 
-    addMessage(message, 'user');
-    conversation.push({ role: 'user', content: message });
-    userInput.value = '';
-    sendBtn.disabled = true;
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-
-    addTypingIndicator();
-
-    try {
-        const res = await fetch('/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ messages: conversation })
-        });
-
-        if (!res.ok) throw new Error(`Server returned ${res.status}`);
-
-        const data = await res.json();
-        removeTypingIndicator();
-
-        const aiText =
-          data.choices?.[0]?.message?.content ||
-          data.error?.message ||
-          "⚠️ No response from Techcraft AI.";
-
-        conversation.push({ role: 'assistant', content: aiText });
-        addMessageWithTyping(aiText, 'ai', message);
-    } catch (err) {
-        console.error('Chat error:', err);
-        removeTypingIndicator();
-        addMessage("⚠️ Techcraft AI server error. Please try again later, or reach us directly at techcraft.bookings@gmail.com / +254 792 627 702.", 'ai');
-    } finally {
-        sendBtn.disabled = false;
+  services: [
+    {
+      name: "Enterprise Software Development",
+      keywords: ["software", "web app", "website", "web application", "management system", "digital platform", "custom software"],
+      price: "KSh 50,000–800,000",
+      description: "Custom web applications, management systems and digital platforms built for scalability, responsiveness, security and operational efficiency."
+    },
+    {
+      name: "Blockchain & FinTech Integration",
+      keywords: ["blockchain", "fintech", "crypto", "cryptocurrency", "kyc", "mobile money", "smart contract", "defi"],
+      price: "KSh 500,000–10,000,000",
+      description: "Blockchain systems, KYC integration, cryptocurrency-to-mobile-money solutions, smart contracts and DeFi platform creation."
+    },
+    {
+      name: "Corporate Brand Development",
+      keywords: ["company profile", "brand", "branding", "brand identity", "corporate identity"],
+      price: "KSh 10,000–50,000",
+      description: "Company profiles, brand identity packages and marketing materials designed to communicate a business value proposition."
+    },
+    {
+      name: "Digital Marketing Assets",
+      keywords: ["poster", "flyer", "digital flyer", "marketing material", "marketing asset"],
+      price: "KSh 2,500–25,000",
+      description: "Poster designs, digital flyers and promotional materials for print and digital channels."
+    },
+    {
+      name: "Logo & Identity Design",
+      keywords: ["logo", "logo design", "identity design"],
+      price: "KSh 5,000–30,000",
+      description: "Distinctive logo designs and broader brand identity systems."
+    },
+    {
+      name: "Educational Technology Solutions",
+      keywords: ["edtech", "education technology", "school management", "school system", "learning management", "lms", "education"],
+      price: "KSh 400,000–8,000,000",
+      description: "School management systems, learning management platforms and educational tools. Tech Craft also works with leading EdTech platforms."
+    },
+    {
+      name: "Programming Tutorials AI & Certification",
+      keywords: ["programming tutorials", "coding tutor", "coding tutorial", "programming ai", "certification", "learn coding"],
+      price: null,
+      description: "An AI-powered programming tutoring system with personalized coding instruction, real-time error detection, adaptive learning paths and certification."
     }
+  ],
+
+  automation: {
+    description: "Tech Craft provides business automation solutions designed to reduce repetitive work and improve operational efficiency.",
+    examples: [
+      "HR recruitment automation",
+      "Email reply automation",
+      "Social media posting automation",
+      "Customer-support chatbots"
+    ],
+    engagement: "Automation services can be hired daily, weekly, monthly or permanently."
+  },
+
+  learning: {
+    description: "The Tech Craft learning portal provides programming learning material, notes, quizzes and certification-oriented learning.",
+    topics: ["Python", "HTML/CSS", "JavaScript", "Python loops", "Python lists and dictionaries", "Object-oriented programming"]
+  },
+
+  pricingNote:
+    "Published price ranges are starting/guide ranges shown by Tech Craft. A final project price should be confirmed after requirements and scope are reviewed. The assistant must not invent a price outside the published ranges."
+};
+
+const LANG_LINKS = [
+  { name: "TypeScript", re: /\btypescript\b/i, url: "https://www.w3schools.com/typescript/" },
+  { name: "JavaScript", re: /\b(javascript|js)\b/i, url: "https://www.w3schools.com/js/" },
+  { name: "Node.js", re: /\bnode(\.js)?\b/i, url: "https://www.w3schools.com/nodejs/" },
+  { name: "React", re: /\breact(\.js)?\b/i, url: "https://www.w3schools.com/react/" },
+  { name: "HTML", re: /\bhtml5?\b/i, url: "https://www.w3schools.com/html/" },
+  { name: "CSS", re: /\bcss3?\b/i, url: "https://www.w3schools.com/css/" },
+  { name: "Bootstrap", re: /\bbootstrap\b/i, url: "https://www.w3schools.com/bootstrap5/" },
+  { name: "jQuery", re: /\bjquery\b/i, url: "https://www.w3schools.com/jquery/" },
+  { name: "Django", re: /\bdjango\b/i, url: "https://www.w3schools.com/django/" },
+  { name: "Python", re: /\bpython\b/i, url: "https://www.w3schools.com/python/" },
+  { name: "PHP", re: /\bphp\b/i, url: "https://www.w3schools.com/php/" },
+  { name: "MySQL", re: /\bmysql\b/i, url: "https://www.w3schools.com/mysql/" },
+  { name: "SQL", re: /\bsql\b/i, url: "https://www.w3schools.com/sql/" },
+  { name: "C++", re: /\bc\+\+\b/i, url: "https://www.w3schools.com/cpp/" },
+  { name: "C#", re: /\bc#\b/i, url: "https://www.w3schools.com/cs/" },
+  { name: "Java", re: /\bjava\b/i, url: "https://www.w3schools.com/java/" },
+  { name: "Kotlin", re: /\bkotlin\b/i, url: "https://www.w3schools.com/kotlin/" },
+  { name: "Git", re: /\bgit\b/i, url: "https://www.w3schools.com/git/" },
+  { name: "JSON", re: /\bjson\b/i, url: "https://www.w3schools.com/js/js_json_intro.asp" },
+  { name: "XML", re: /\bxml\b/i, url: "https://www.w3schools.com/xml/" }
+];
+
+const SYSTEM_PROMPT = `
+You are Techcraft AI, the official assistant for Tech Craft Limited.
+
+Use the supplied Tech Craft knowledge base as the source of truth for company,
+service, pricing, automation, learning, contact and website questions.
+
+IMPORTANT:
+- Never invent Tech Craft services, prices, staff names, guarantees, locations,
+  customer names, delivery dates or policies.
+- Published prices are ranges only. Do not quote a final price without requirements.
+- If the knowledge base does not support a company-specific answer, say that you
+  do not have enough verified information and direct the visitor to Tech Craft.
+- For coding questions, give technically useful answers. Do not pretend that
+  Tech Craft officially supports a technology merely because you can explain it.
+- Keep answers professional, concise and practical.
+- When useful, use these exact links:
+  Website: ${SITE.website}
+  Services: ${SITE.services}
+  Pricing: ${SITE.pricing}
+  Automation: ${SITE.automation}
+  Learning: ${SITE.learning}
+  Booking: ${SITE.booking}
+  Email: ${SITE.email}
+  Phone/WhatsApp: ${SITE.phone}
+`;
+
+const chatContainer = document.getElementById("chatContainer");
+const userInput = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+
+let conversation = [{ role: "system", content: SYSTEM_PROMPT }];
+let busy = false;
+
+function escapeHTML(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-/* Escapes HTML, then converts markdown-style [text](url), bare
-   URLs, emails, and **bold** into safe, clickable HTML. */
+function safeLink(url) {
+  try {
+    const u = new URL(url);
+    return ["https:", "mailto:", "tel:"].includes(u.protocol) ? u.href : "#";
+  } catch {
+    return "#";
+  }
+}
+
 function formatMessage(text) {
-    let safe = text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+  let safe = escapeHTML(text);
 
-    // markdown links [text](url)
-    safe = safe.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
-        '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  // Markdown links: only permit http(s).
+  safe = safe.replace(
+    /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+    (_, label, url) => `<a href="${escapeHTML(safeLink(url))}" target="_blank" rel="noopener noreferrer">${label}</a>`
+  );
 
-    // bold **text**
-    safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  // Bold.
+  safe = safe.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 
-    // bare emails
-    safe = safe.replace(/([\w.+-]+@[\w-]+\.[\w.-]+)(?![^<]*>)/g,
-        '<a href="mailto:$1">$1</a>');
+  // Emails.
+  safe = safe.replace(
+    /([\w.+-]+@[\w-]+\.[\w.-]+)/g,
+    '<a href="mailto:$1">$1</a>'
+  );
 
-    // bare URLs not already inside an <a> tag
-    safe = safe.replace(/(?<!href=")(https?:\/\/[^\s<]+)/g,
-        '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  // Plain URLs that were not converted by markdown.
+  safe = safe.replace(
+    /(?<!["'=])(https?:\/\/[^\s<]+)/g,
+    (url) => `<a href="${escapeHTML(safeLink(url.replace(/[),.]+$/, ""))}" target="_blank" rel="noopener noreferrer">${url}</a>`
+  );
 
-    return safe;
+  return safe;
 }
 
 function addMessage(text, sender) {
-    const div = document.createElement('div');
-    div.className = `message ${sender}`;
-    div.innerHTML = formatMessage(text);
-    chatContainer.appendChild(div);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-}
-
-function addResourceChips(text) {
-    const langs = detectLanguages(text);
-    if (!langs.length) return;
-    const wrap = document.createElement('div');
-    wrap.className = 'resource-chips';
-    langs.forEach(lang => {
-        const a = document.createElement('a');
-        a.href = lang.url;
-        a.target = '_blank';
-        a.rel = 'noopener';
-        a.className = 'resource-chip';
-        a.innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${lang.name} on W3Schools`;
-        wrap.appendChild(a);
-    });
-    chatContainer.appendChild(wrap);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+  const div = document.createElement("div");
+  div.className = `message ${sender}`;
+  div.innerHTML = formatMessage(text);
+  chatContainer.appendChild(div);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 function addTypingIndicator() {
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'message ai typing';
-    typingDiv.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-    chatContainer.appendChild(typingDiv);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+  const div = document.createElement("div");
+  div.className = "message ai typing";
+  div.dataset.typing = "true";
+  div.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+  chatContainer.appendChild(div);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 function removeTypingIndicator() {
-    const typing = document.querySelector('.typing');
-    if (typing) typing.remove();
+  chatContainer.querySelector('[data-typing="true"]')?.remove();
 }
 
-function addMessageWithTyping(text, sender, userMessage) {
-    const div = document.createElement('div');
-    div.className = `message ${sender}`;
-    chatContainer.appendChild(div);
+function addResourceChips(text) {
+  const found = LANG_LINKS.filter(lang => lang.re.test(text));
+  if (!found.length) return;
 
-    const rendered = formatMessage(text);
-    // Type out the plain-text version for effect, then swap in the
-    // fully-formatted HTML (with working links) once done.
-    let index = 0;
-    const plain = text.replace(/\*\*([^*]+)\*\*/g, '$1');
-    const interval = setInterval(() => {
-        if (index < plain.length) {
-            div.textContent = plain.slice(0, index + 1);
-            index++;
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        } else {
-            clearInterval(interval);
-            div.innerHTML = rendered;
-            // Detect language mentions in either the AI reply or the
-            // user's own question, so a W3Schools chip always appears.
-            addResourceChips(text + ' ' + (userMessage || ''));
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-    }, 12);
+  const existing = new Set(
+    [...chatContainer.querySelectorAll(".resource-chip")].map(a => a.dataset.lang)
+  );
+
+  const wrap = document.createElement("div");
+  wrap.className = "resource-chips";
+
+  found.forEach(lang => {
+    if (existing.has(lang.name)) return;
+    const a = document.createElement("a");
+    a.className = "resource-chip";
+    a.dataset.lang = lang.name;
+    a.href = lang.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${escapeHTML(lang.name)} on W3Schools`;
+    wrap.appendChild(a);
+  });
+
+  if (wrap.children.length) {
+    chatContainer.appendChild(wrap);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
 }
 
-/* Quick action bar */
+function addMessageWithTyping(text, sender, userMessage = "") {
+  const div = document.createElement("div");
+  div.className = `message ${sender}`;
+  chatContainer.appendChild(div);
+
+  const plain = String(text)
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1");
+
+  let index = 0;
+  const interval = setInterval(() => {
+    if (index < plain.length) {
+      div.textContent = plain.slice(0, ++index);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    } else {
+      clearInterval(interval);
+      div.innerHTML = formatMessage(text);
+      addResourceChips(`${text} ${userMessage}`);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  }, 8);
+}
+
+function normalise(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s+#.-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function containsAny(text, terms) {
+  return terms.some(term => text.includes(term));
+}
+
+function serviceByKeywords(text) {
+  return KNOWLEDGE_BASE.services.find(service =>
+    service.keywords.some(keyword => text.includes(keyword))
+  );
+}
+
+function servicesAnswer(text) {
+  const service = serviceByKeywords(text);
+
+  if (service) {
+    return `**${service.name}**
+
+${service.description}
+
+**Published price range:** ${service.price || "Not published on the current pricing information."}
+
+${KNOWLEDGE_BASE.pricingNote}
+
+[View Tech Craft pricing](https://www.techcraftlimited.tech/pricing.html) or [book a consultation](https://www.techcraftlimited.tech/booking.html).`;
+  }
+
+  return `Tech Craft Limited offers:
+
+• **Enterprise Software Development** — KSh 50,000–800,000
+• **Blockchain & FinTech Integration** — KSh 500,000–10,000,000
+• **Corporate Brand Development** — KSh 10,000–50,000
+• **Digital Marketing Assets** — KSh 2,500–25,000
+• **Logo & Identity Design** — KSh 5,000–30,000
+• **Educational Technology Solutions** — KSh 400,000–8,000,000
+• **Programming Tutorials AI & Certification**
+
+[View all services](https://www.techcraftlimited.tech/index.html#services) and [view pricing](https://www.techcraftlimited.tech/pricing.html).`;
+}
+
+function pricingAnswer(text) {
+  const service = serviceByKeywords(text);
+
+  if (service) return servicesAnswer(text);
+
+  return `Here are Tech Craft Limited's published price ranges:
+
+• Enterprise Software Development: **KSh 50,000–800,000**
+• Blockchain & FinTech Integration: **KSh 500,000–10,000,000**
+• Corporate Brand Development: **KSh 10,000–50,000**
+• Digital Marketing Assets: **KSh 2,500–25,000**
+• Logo & Identity Design: **KSh 5,000–30,000**
+• Educational Technology Solutions: **KSh 400,000–8,000,000**
+• Programming Tutorials AI & Certification: no price range is published here.
+
+These are published ranges, not final quotations. The final cost depends on the requirements and scope.
+
+[View pricing](https://www.techcraftlimited.tech/pricing.html) or [book a consultation](https://www.techcraftlimited.tech/booking.html).`;
+}
+
+function contactAnswer() {
+  return `You can contact Tech Craft Limited through:
+
+📧 **Email:** [${SITE.email}](mailto:${SITE.email})
+📱 **Phone / WhatsApp:** [${SITE.phone}](tel:${SITE.phone.replace(/\s/g, "")})
+📅 **Consultation:** [Book a consultation](${SITE.booking})
+
+You can also visit the [Tech Craft website](${SITE.website}).`;
+}
+
+function bookingAnswer() {
+  return `Absolutely. You can book a consultation here:
+
+📅 [Book a Tech Craft consultation](${SITE.booking})
+
+You can also contact the team directly at [${SITE.email}](mailto:${SITE.email}) or [${SITE.phone}](tel:${SITE.phone.replace(/\s/g, "")}).
+
+For a quote, it helps to include what you want built, the main features, who will use it, and any integrations you need.`;
+}
+
+function automationAnswer() {
+  return `Tech Craft provides business automation solutions including:
+
+• HR recruitment automation
+• Email reply automation
+• Social media posting automation
+• Customer-support chatbots
+
+Automation services can be hired **daily, weekly, monthly or permanently**.
+
+[Explore automation](https://www.techcraftlimited.tech/automation.html) or [book a consultation](https://www.techcraftlimited.tech/booking.html).`;
+}
+
+function learningAnswer() {
+  return `Tech Craft's Learning Portal provides programming learning material, notes, quizzes and certification-oriented learning.
+
+Topics shown include **Python, HTML/CSS, JavaScript, Python loops, lists/dictionaries and object-oriented programming**.
+
+[Open the Learning Portal](https://www.techcraftlimited.tech/learning.html).`;
+}
+
+function companyAnswer() {
+  return `${KNOWLEDGE_BASE.company.name} is an enterprise technology consultancy focused on software systems and digital transformation.
+
+The company works on solutions such as custom enterprise applications, blockchain/FinTech integration, educational technology, branding and digital assets, automation, and AI-powered programming education.
+
+[Visit Tech Craft Limited](https://www.techcraftlimited.tech/) or [contact the team](mailto:${SITE.email}).`;
+}
+
+function localKnowledgeAnswer(message) {
+  const t = normalise(message);
+
+  if (containsAny(t, ["hello", "hi", "hey", "good morning", "good afternoon", "who are you"])) {
+    return `👋 I'm **Techcraft AI**, the assistant for Tech Craft Limited.
+
+I can help you understand our **services, pricing, automation, learning portal and booking process**, or help with coding and ICT questions.
+
+What would you like to know?`;
+  }
+
+  if (containsAny(t, ["contact", "email", "phone", "whatsapp", "reach you", "how can i contact"])) {
+    return contactAnswer();
+  }
+
+  if (containsAny(t, ["book", "booking", "consultation", "schedule", "meeting", "quote", "quotation"])) {
+    return bookingAnswer();
+  }
+
+  if (containsAny(t, ["pricing", "price", "cost", "how much", "budget", "fee", "fees"])) {
+    return pricingAnswer(t);
+  }
+
+  if (containsAny(t, ["automation", "automate", "chatbot", "recruitment automation", "email automation", "social media automation"])) {
+    return automationAnswer();
+  }
+
+  if (containsAny(t, ["learning portal", "learn coding", "learn to code", "tutorial", "certification", "course"])) {
+    return learningAnswer();
+  }
+
+  if (containsAny(t, ["services", "service", "what do you do", "what does tech craft do", "offer"])) {
+    return servicesAnswer(t);
+  }
+
+  if (containsAny(t, ["about tech craft", "about the company", "who is tech craft", "what is tech craft"])) {
+    return companyAnswer();
+  }
+
+  if (containsAny(t, ["blockchain", "fintech", "crypto", "smart contract", "kyc", "mobile money", "defi"])) {
+    return servicesAnswer(t);
+  }
+
+  const service = serviceByKeywords(t);
+  if (service) return servicesAnswer(t);
+
+  // No company-specific match. Return null so the coding/general AI backend
+  // gets a chance to answer.
+  return null;
+}
+
+async function callBackend(message) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+
+  try {
+    const messages = [
+      { role: "system", content: SYSTEM_PROMPT },
+      ...conversation.filter(m => m.role !== "system").slice(-12),
+      { role: "user", content: message }
+    ];
+
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ messages }),
+      signal: controller.signal
+    });
+
+    const raw = await res.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch {}
+
+    if (!res.ok) {
+      throw new Error(data?.error?.message || `API returned HTTP ${res.status}`);
+    }
+
+    const answer =
+      data?.choices?.[0]?.message?.content ||
+      data?.message?.content ||
+      data?.output_text ||
+      data?.response ||
+      data?.answer;
+
+    if (!answer || typeof answer !== "string") {
+      throw new Error("The API returned no assistant message.");
+    }
+
+    return answer.trim();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function backendFallback(message, error) {
+  console.warn("Techcraft AI backend unavailable:", error);
+
+  const tech = detectLanguages(message);
+  const techName = tech.length ? tech[0].name : null;
+
+  if (techName) {
+    return `I can help with **${techName}**, but the live AI coding service is temporarily unavailable.
+
+You can still use the ${techName} learning resource below, or contact Tech Craft Limited if this is a project request.
+
+[Learn ${techName} on W3Schools](${tech[0].url})
+
+📧 [${SITE.email}](mailto:${SITE.email})
+📱 [${SITE.phone}](tel:${SITE.phone.replace(/\s/g, "")})`;
+  }
+
+  return `I can answer Tech Craft Limited questions directly, but the live AI service is temporarily unavailable for this request.
+
+Try asking about **services, pricing, automation, learning, booking or contact details**, or reach Tech Craft directly at [${SITE.email}](mailto:${SITE.email}) / [${SITE.phone}](tel:${SITE.phone.replace(/\s/g, "")}).`;
+}
+
+async function sendMessage(overrideText) {
+  if (busy) return;
+
+  const message = (overrideText !== undefined ? overrideText : userInput.value).trim();
+  if (!message) return;
+
+  busy = true;
+  sendBtn.disabled = true;
+  userInput.value = "";
+
+  addMessage(message, "user");
+  conversation.push({ role: "user", content: message });
+  addTypingIndicator();
+
+  try {
+    // Hard-coded Tech Craft knowledge is deliberately checked first.
+    let answer = localKnowledgeAnswer(message);
+
+    if (!answer) {
+      try {
+        answer = await callBackend(message);
+      } catch (err) {
+        answer = backendFallback(message, err);
+      }
+    }
+
+    removeTypingIndicator();
+    conversation.push({ role: "assistant", content: answer });
+    addMessageWithTyping(answer, "ai", message);
+
+    // Keep memory bounded to avoid huge requests.
+    if (conversation.length > 25) {
+      conversation = [
+        conversation[0],
+        ...conversation.slice(-20)
+      ];
+    }
+  } catch (err) {
+    console.error("Unexpected assistant error:", err);
+    removeTypingIndicator();
+    const safeFallback = "I couldn't complete that request. Please try again, or contact Tech Craft Limited at techcraft.bookings@gmail.com / +254 792 627 702.";
+    conversation.push({ role: "assistant", content: safeFallback });
+    addMessage(safeFallback, "ai");
+  } finally {
+    busy = false;
+    sendBtn.disabled = false;
+    userInput.focus();
+  }
+}
+
 const QUICK_PROMPTS = {
-    services: "What services does Tech Craft Limited offer?",
-    pricing: "What's your pricing for a website or software project?",
-    contact: "How can I contact Tech Craft Limited?",
-    learn: "I want to learn a programming language — where should I start?",
-    blockchain: "Tell me about your blockchain and fintech integration services."
+  services: "What services does Tech Craft Limited offer?",
+  pricing: "What are Tech Craft Limited's published prices?",
+  booking: "How do I book a consultation?",
+  contact: "How can I contact Tech Craft Limited?",
+  learn: "What can I learn through the Tech Craft Learning Portal?",
+  blockchain: "Tell me about Tech Craft's blockchain and FinTech services."
 };
 
-document.getElementById('quickActions').addEventListener('click', (e) => {
-    const btn = e.target.closest('.quick-btn');
-    if (!btn) return;
-    const action = btn.dataset.action;
-    if (action === 'booking') {
-        window.open('https://www.techcraftlimited.tech/booking.html', '_blank', 'noopener');
-        return;
-    }
-    sendMessage(QUICK_PROMPTS[action]);
+document.getElementById("quickActions").addEventListener("click", event => {
+  const btn = event.target.closest(".quick-btn");
+  if (!btn) return;
+
+  const action = btn.dataset.action;
+  if (action === "booking") {
+    window.open(SITE.booking, "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  sendMessage(QUICK_PROMPTS[action] || "Tell me about Tech Craft Limited.");
 });
 
-sendBtn.addEventListener('click', () => sendMessage());
-userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
+sendBtn.addEventListener("click", () => sendMessage());
+
+userInput.addEventListener("keydown", event => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    sendMessage();
+  }
+});
+
+window.addEventListener("load", () => {
+  const greeting =
+    "👋 Hey! I'm **Techcraft AI**, the assistant for Tech Craft Limited.\n\n" +
+    "I can answer questions about our **services, pricing, automation, learning portal and consultations**, and I can also help with coding and ICT questions.\n\n" +
+    "[Book a consultation](https://www.techcraftlimited.tech/booking.html) or ask me anything.";
+
+  conversation.push({ role: "assistant", content: greeting });
+  addMessageWithTyping(greeting, "ai");
+});
 </script>
 
 </body>
 </html>
-
-
-
 
 
