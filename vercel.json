@@ -3,47 +3,43 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/Techcraft/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/AI.html",
-      "destination": "/Techcraft/AI.html"
+      "destination": "/AI.html"
     },
     {
       "source": "/automation.html",
-      "destination": "/Techcraft/automation.html"
+      "destination": "/automation.html"
     },
     {
       "source": "/booking.html",
-      "destination": "/Techcraft/booking.html"
+      "destination": "/booking.html"
     },
     {
       "source": "/index.html",
-      "destination": "/Techcraft/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/learning.html",
-      "destination": "/Techcraft/learning.html"
+      "destination": "/learning.html"
     },
     {
       "source": "/pricing.html",
-      "destination": "/Techcraft/pricing.html"
+      "destination": "/pricing.html"
     },
     {
       "source": "/privacy.html",
-      "destination": "/Techcraft/privacy.html"
+      "destination": "/privacy.html"
     },
     {
       "source": "/sitemap.html",
-      "destination": "/Techcraft/sitemap.html"
+      "destination": "/sitemap.html"
     },
     {
       "source": "/terms.html",
-      "destination": "/Techcraft/terms.html"
-    },
-    {
-      "source": "/techcraft.png",
-      "destination": "/Techcraft/techcraft.png"
+      "destination": "/terms.html"
     }
   ]
 }
