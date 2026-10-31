@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Craft Limited - Book a Session</title>
+  <meta name="description" content="Book a consultation or session with Tech Craft Limited.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-dark: #0A1F44;
+      --primary-light: #ffffff;
+      --surface-gray: #F4F6F8;
+      --accent-blue: #1D65A6;
+      --text-secondary: #333333;
+      --text-light: #666666;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background: var(--primary-light);
+      color: var(--text-secondary);
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--primary-dark);
+      padding: 16px 32px ;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      margin: 0;
+    }
+
+    .logo-text {
+      color: var(--primary-light);
+      font-size: 22px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 14px;
+      padding: 10px 25px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--primary-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-blue);
+    }
+
+    /* Hero */
+    .hero {
+      margin-top: 80px;
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: linear-gradient(135deg, var(--surface-gray), var(--primary-light));
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Booking Form */
+    .form-container {
+      max-width: 900px;
+      margin: 40px auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+    }
+
+    .form-container iframe {
+      width: 100%;
+      height: 85vh;
+      border: none;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: var(--primary-light);
+      text-align: center;
+      padding: 24px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="nav">
+    <a href="index.html" class="logo-text">Tech Craft Limited</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Book a Session</h1>
+    <p>Schedule your consultation with Tech Craft experts in just a few clicks.</p>
+  </section>
+
+  <!-- Booking Form -->
+  <div class="form-container">
+    <iframe src="https://form.typeform.com/to/bVeHk7sd" allow="camera; microphone; autoplay; encrypted-media;"></iframe>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Tech Craft Limited. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
+
