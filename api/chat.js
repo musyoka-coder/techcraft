@@ -29,6 +29,6 @@ export default async function handler(req, res) {
     const data = await response.json();
     const answer = data?.choices?.[0]?.message?.content;
     if (typeof answer !== "string" || !answer.trim()) return res.status(502).json({error:{message:"Empty AI response"}});
-    return res.status(200).json({answer:answer.replace(/[\\p{Extended_Pictographic}\uFE0F\u200D]/gu,"").trim()});
+    return res.status(200).json({answer:answer.replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu,"").trim()});
   } catch (error) { console.error("Techcraft AI request failed",error?.name || "Error"); return res.status(504).json({error:{message:"AI request timed out or failed"}}); }
 }
