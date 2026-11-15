@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tech Craft Limited — Enterprise Technology Solutions</title>
 <meta name="description" content="Leading technology consultancy offering enterprise software development, blockchain integration, brand development, digital marketing, and educational technology solutions across Kenya.">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link rel="canonical" href="https://techcraftlimited.me/">
 
 <style>
 /* Base Reset & Variables */
@@ -654,6 +654,11 @@ nav {
     display: none;
   }
 }
+
+/* Inline icons: no external stylesheet or font requests on the homepage. */
+.fas,.fab{display:inline-flex;align-items:center;justify-content:center;font-style:normal}
+.site-icon{width:1em;height:1em;display:block;overflow:visible}
+.close-lines{display:none}.fa-times .menu-lines{display:none}.fa-times .close-lines{display:block}
 </style>
 </head>
 
@@ -662,7 +667,7 @@ nav {
 <nav class="nav">
   <div class="nav-container">
     <div class="logo-section">
-      <img src="techcraft.png" alt="Tech Craft Logo" class="logo-image">
+      <img src="techcraft.png" alt="Tech Craft Logo" class="logo-image" width="45" height="45" decoding="async">
       <a href="#" class="logo-text">Tech Craft Limited</a>
     </div>
     <ul class="nav-links">
@@ -671,8 +676,8 @@ nav {
       <li><a href="automation.html">Automation</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="menu-toggle">
-      <i class="fas fa-bars"></i>
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <i class="fas fa-bars"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="menu-lines" d="M4 6h16M4 12h16M4 18h16"/><path class="close-lines" d="m6 6 12 12M6 18 18 6"/></svg></i>
     </button>
   </div>
 </nav>
@@ -696,49 +701,49 @@ nav {
     <div class="services-grid">
       <div class="service-card">
         <div class="service-icon">
-          <i class="fas fa-laptop-code"></i>
+          <i class="fas fa-laptop-code"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M2 20h20m-12-13-3 3 3 3m4-6 3 3-3 3"/></svg></i>
         </div>
         <h3>Enterprise Software Development</h3>
         <p>Custom web applications, management systems, and digital platforms built for scalability. We develop responsive, secure solutions that streamline operations and enhance productivity across your organization.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <i class="fas fa-link"></i>
+          <i class="fas fa-link"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m10 13 4-4m-5 6-2 2a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m0 2 2-2a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0"/></svg></i>
         </div>
         <h3>Blockchain & FinTech Integration</h3>
         <p>Secure blockchain systems with KYC integration, cryptocurrency-to-mobile money solutions, smart contract development, and DeFi platform creation. We bridge traditional finance with emerging technologies.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <i class="fas fa-palette"></i>
+          <i class="fas fa-palette"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 0-4 2 2 0 0 1 0-4h4a4 4 0 0 0 4-4c0-3-4-6-9-6Z"/><circle cx="7" cy="9" r="1"/><circle cx="10" cy="6" r="1"/><circle cx="15" cy="6" r="1"/></svg></i>
         </div>
         <h3>Corporate Brand Development</h3>
         <p>Professional company profiles, brand identity packages, and marketing materials that communicate your value proposition effectively to clients, partners, and investors.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <i class="fas fa-bullhorn"></i>
+          <i class="fas fa-bullhorn"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4 9 14-5v16L4 15Zm0 0H2v6h2m3 1 2 6h4l-2-5m11-9v8"/></svg></i>
         </div>
         <h3>Digital Marketing Assets</h3>
         <p>Strategic poster designs, digital flyers, and promotional materials optimized for both print and digital channels. Creative solutions that drive engagement and conversions.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <i class="fas fa-award"></i>
+          <i class="fas fa-award"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="m8 12-2 9 6-3 6 3-2-9"/></svg></i>
         </div>
         <h3>Logo & Identity Design</h3>
         <p>Distinctive logo designs and comprehensive brand identity systems that establish market recognition and build trust with your target audience.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <i class="fas fa-graduation-cap"></i>
+          <i class="fas fa-graduation-cap"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 8 10-5 10 5-10 5Zm4 3v7c4 3 8 3 12 0v-7m4-3v10"/></svg></i>
         </div>
         <h3>Educational Technology Solutions</h3>
         <p>School management systems, learning management platforms, and educational tools. We partner with leading EdTech platforms to deliver comprehensive solutions that improve learning outcomes.</p>
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <i class="fas fa-robot"></i>
+          <i class="fas fa-robot"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="3"/><path d="M12 3v4M1 12v6m22-6v6M8 16h8"/><circle cx="8" cy="12" r="1"/><circle cx="16" cy="12" r="1"/></svg></i>
         </div>
         <h3>Programming Tutorials AI & Certification</h3>
         <p>Advanced AI-powered programming tutoring system that provides personalized coding instruction, real-time error detection, adaptive learning paths and certifications for students and professionals across multiple programming languages.</p>
@@ -765,21 +770,21 @@ nav {
     <div class="contact-grid">
       <div class="contact-card">
         <div class="contact-icon">
-          <i class="fas fa-envelope"></i>
+          <i class="fas fa-envelope"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7L22 6"/></svg></i>
         </div>
         <h3>Email consultation</h3>
         <a href="mailto:techcraft.bookings@gmail.com">techcraft.bookings@gmail.com</a>
       </div>
       <div class="contact-card">
         <div class="contact-icon">
-          <i class="fas fa-phone"></i>
+          <i class="fas fa-phone"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 3 4 5-3 3c2 3 4 5 7 7l3-3 5 4c-2 5-7 3-12-1S0 6 5 3Z"/></svg></i>
         </div>
         <h3>Direct Line</h3>
         <a href="tel:+254792627702">+254 792 627 702</a>
       </div>
       <div class="contact-card">
         <div class="contact-icon">
-          <i class="fas fa-calendar"></i>
+          <i class="fas fa-calendar"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"/><path d="M7 2v6m10-6v6M3 11h18m-14 4h2m3 0h2m3 0h1"/></svg></i>
         </div>
         <h3>Schedule Meeting</h3>
         <a href="booking.html">Book Consultation</a>
@@ -792,7 +797,7 @@ nav {
 <div class="ai-button-container">
   <a href="AI.html" target="_blank" style="text-decoration: none;">
     <div id="aiButton">
-      <i class="fas fa-robot"></i>
+      <i class="fas fa-robot"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="14" rx="3"/><path d="M12 3v4M1 12v6m22-6v6M8 16h8"/><circle cx="8" cy="12" r="1"/><circle cx="16" cy="12" r="1"/></svg></i>
       <div id="aiTooltip"> Brainstorm with AI</div>
     </div>
   </a>
@@ -839,13 +844,13 @@ nav {
         </p>
         <div class="social-links">
           <a href="https://linkedin.com/company/tech-craft-limited" aria-label="LinkedIn" target="_blank" rel="noopener">
-            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+            <i class="fab fa-linkedin-in" aria-hidden="true"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v12M4 3v1m6 17V9m0 5a5 5 0 0 1 10 0v7"/></svg></i>
           </a>
           <a href="https://x.com/Tech_craft_ltd?s=09&t=dpjquoECA7vQ30L01CiuYA" aria-label="Twitter" target="_blank" rel="noopener">
-            <i class="fab fa-twitter" aria-hidden="true"></i>
+            <i class="fab fa-twitter" aria-hidden="true"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h4l12 18h-4ZM4 21 20 3"/></svg></i>
           </a>
           <a href="https://www.facebook.com/profile.php?id=61583499659601" aria-label="Facebook" target="_blank" rel="noopener">
-            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+            <i class="fab fa-facebook-f" aria-hidden="true"><svg class="site-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 22V9c0-4 2-6 7-6m-12 9h11"/></svg></i>
           </a>
         </div>
       </div>
@@ -864,6 +869,7 @@ const navLinks = document.querySelector('.nav-links');
 
 menuToggle.addEventListener('click', () => {
   navLinks.classList.toggle('active');
+  menuToggle.setAttribute('aria-expanded', String(navLinks.classList.contains('active')));
   const icon = menuToggle.querySelector('i');
   icon.classList.toggle('fa-bars');
   icon.classList.toggle('fa-times');
@@ -873,6 +879,8 @@ menuToggle.addEventListener('click', () => {
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', () => {
     navLinks.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
     const icon = menuToggle.querySelector('i');
     icon.classList.add('fa-bars');
     icon.classList.remove('fa-times');
@@ -883,7 +891,9 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
+    const href = this.getAttribute('href');
+    if (href === '#') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    const target = document.querySelector(href);
     if (target) {
       target.scrollIntoView({
         behavior: 'smooth',
@@ -942,6 +952,8 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 768) {
     document.body.style.overflow = '';
     navLinks.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
     const icon = menuToggle.querySelector('i');
     icon.classList.add('fa-bars');
     icon.classList.remove('fa-times');
